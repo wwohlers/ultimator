@@ -1,17 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Start v-if="onStart" />
+    <Offer v-if="onOffer" />
+    <Respond v-if="onRespond" />
+    <Finish v-if="onFinish" />
+    <Score />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Start from './components/Start.vue'
+import Offer from './components/Offer.vue'
+import Respond from './components/Respond.vue'
+import Finish from './components/Finish.vue'
+import Score from './components/Score.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Start,
+    Offer,
+    Respond,
+    Finish
+  },
+  data() {
+    return {
+      onStart: true,
+      onOffer: false,
+      onRespond: false,
+      onFinish: false,
+    }
+  },
+  computed: {
+    onStart: function() { return this.onStart; },
+    onOffer: function() { return this.onOffer; },
+    onRespond: function() { return this.onRespond; },
+    onFinish: function() { return this.onFinish; },
   }
 }
 </script>
