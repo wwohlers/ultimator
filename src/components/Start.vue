@@ -1,12 +1,19 @@
 <template>
   <div>
-    Start
+    Instructions
+    <button value="START" @click="start" />
   </div>
 </template>
 
 <script>
 export default {
   name: 'Start',
+  
+  methods: {
+    start: function() {
+      this.$parent.start();
+    }
+  }
 }
 </script>
 

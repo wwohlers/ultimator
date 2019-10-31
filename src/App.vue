@@ -21,7 +21,8 @@ export default {
     Start,
     Offer,
     Respond,
-    Finish
+    Finish,
+    Score
   },
   data() {
     return {
@@ -29,6 +30,7 @@ export default {
       onOffer: false,
       onRespond: false,
       onFinish: false,
+      rounds: null,
     }
   },
   computed: {
@@ -36,6 +38,30 @@ export default {
     onOffer: function() { return this.onOffer; },
     onRespond: function() { return this.onRespond; },
     onFinish: function() { return this.onFinish; },
+  },
+  methods: {
+    start: function() {
+      onStart = false;
+      onRespond = true;
+    },
+
+    //respond: Continues game after user response.
+    respond: function(offer, accepted) {
+      
+    },
+
+    //decide: Determines a response, and continues game.
+    decide: function(offer) {
+        
+    },
+
+    //calculateOffer: Calculates offer based on previous rounds.
+    calculateOffer: function(rounds) {
+
+    },
+
+    //calculateDecision: calculates decision based on previous rounds and the user's offer.
+    calculateDecision: function(rounds, )
   }
 }
 </script>

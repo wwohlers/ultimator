@@ -10,8 +10,6 @@
 export default {
   name: 'Offer',
   props: {
-    userScore: Number,
-    computerScore: Number,
     loading: Boolean,
   },
   data() {
@@ -43,6 +41,7 @@ export default {
       }
     }
   },
+
   watch: {
     //loading(oldVal, newVal): Handles when the loading prop changes.
     //Purpose: If loading is changed to false by parent, we clear out the component. Any other newVal does nothing.
