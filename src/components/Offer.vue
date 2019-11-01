@@ -1,7 +1,7 @@
 <template>
   <div class="game">
     <input type="text" v-model="offerVal" @keypress="onlyNumber"/>
-    <button value="offer" @click="respond" :disabled="loading"/>
+    <button value="offer" @click="submit" :disabled="loading"/>
     <p class="error" v-if="error">Offer not valid. Must be between 0 and 100.</p>
   </div>
 </template>
@@ -9,26 +9,27 @@
 <script>
 export default {
   name: 'Offer',
-  props: {
-    loading: Boolean,
-  },
   data() {
     return {
       offerVal: "0",
+      loading: false,
       error: false,
     }
   },
+
   methods: {
-    //respond(): Handles when the main button is pressed.
-    //Purpose: Converts the 
-    respond: function() {
-      var n = Number(offerVal);
-      if (n >= 0 && n <= 100) {
-        error = false;
-        loading = true;
-        this.$parent.decide(n);
+    //respond(): Submits offer to computer.
+    submit: function() {
+      var offer = Number(this.offerVal);
+      if (offer >= 0 && offer <= 100) {
+        this.error = false;
+        this.loading = true;
+
+        this.$parent.decide(offer);
+
+        this.loading = false;
       } else {
-        error = true;
+        this.error = true;
       }
     },
 
@@ -41,18 +42,6 @@ export default {
       }
     }
   },
-
-  watch: {
-    //loading(oldVal, newVal): Handles when the loading prop changes.
-    //Purpose: If loading is changed to false by parent, we clear out the component. Any other newVal does nothing.
-    loading: function(oldVal, newVal) {
-      if (newVal == false) {
-        offerVal = "";
-        error = false;
-        loading = false;
-      }
-    }
-  }
 }
 </script>
 

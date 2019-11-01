@@ -1,7 +1,10 @@
 <template>
   <div>
     <p><span>User score: {{ this.getScores.userScore }}</span>, <span>Computer score: {{ this.getScores.computerScore }}</span></p>
-    <p v-for="(r, index) in rounds" :key="index">{{ r.type }}, {{ r.offerVal }}, {{ r.response }}</p>
+    <p v-for="(r, index) in rounds" :key="index">
+        <span v-if="r.type == 'offer'">Round {{ r.index + 1 }}: User offered {{ r.offer }}, computer {{ this.action(r.accepted) }}</span>
+        <span v-if="r.type == 'response'">Round {{ r.index + 1 }}: Computer offered {{ r.offer }}, user {{ this.action(r.accepted) }}</span>
+    </p>
   </div>
 </template>
 
@@ -14,7 +17,10 @@ export default {
     },
 
     methods: {
-        
+        //action: returns "accepted" or "rejected" for "true" or "false", respectively
+        action: function(response) {
+            return response ? "accepted" : "rejected";
+        }
     },
 
     computed: {
@@ -23,6 +29,11 @@ export default {
             var userScore = 0;
             var computerScore = 0;
             //Get scores
+
+            for (var i = 0; i < rounds.length; i++) {
+                userScore += rounds[i].userScore;
+                computerScore += roudns[i].computerScore;
+            }
 
             //Return scores
             return {userScore: userScore, computerScore: computerScore, }

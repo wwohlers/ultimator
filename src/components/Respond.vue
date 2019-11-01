@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>{{ this.offer }}</p>
-    <button value="ACCEPT" @click="respond(true)" :disabled="loading"> <button value="REJECT" @click="respond(false)" :disabled="loading">
+    <button @click="respond(true)" :disabled="loading">ACCEPT</button> <button @click="respond(false)" :disabled="loading">REJECT</button>
   </div>
 </template>
 
@@ -10,24 +10,21 @@ export default {
   name: 'Respond',
   props: {
     offer: Number,
-    loading: Boolean,
+  },
+  data() {
+    return {
+      loading: false,
+    }
   },
   methods: {
     respond: function(accepted) {
-      loading = true;
-      this.$parent.getResponse(offer, accepted);
+      this.loading = true;
+
+      this.$parent.respond(this.offer, accepted);
+
+      this.loading = false;
     }
   },
-  watch: {
-    //loading(oldVal, newVal): Handles when the loading prop changes.
-    //Purpose: If loading is changed to false by parent, we clear out the component. Any other newVal does nothing.
-    loading: function(oldVal, newVal) {
-      if (newVal == false) {
-        error = false;
-        loading = false;
-      }
-    }
-  }
 }
 </script>
 

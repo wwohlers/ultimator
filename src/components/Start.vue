@@ -1,7 +1,7 @@
 <template>
   <div>
     Instructions
-    <button value="START" @click="start" />
+    <button @click="start">START</button>
   </div>
 </template>
 
