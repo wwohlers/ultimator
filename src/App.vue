@@ -3,7 +3,7 @@
     <Start v-if="onStart" />
     <Offer v-if="onOffer" />
     <Respond v-if="onRespond" :offer="nextOffer"/>
-    <Finish v-if="onFinish" />
+    <Finish v-if="onFinish" :rounds="rounds"/>
     <Score :rounds="rounds"/>
   </div>
 </template>
@@ -30,28 +30,22 @@ export default {
       onOffer: false,
       onRespond: false,
       onFinish: false,
-      rounds: null,
+      rounds: [],
       nextOffer: 0,
     }
   },
-  computed: {
-    onStart: function() { return this.onStart; },
-    onOffer: function() { return this.onOffer; },
-    onRespond: function() { return this.onRespond; },
-    onFinish: function() { return this.onFinish; },
-  },
   methods: {
     start: function() {
-      onStart = false;
-      nextOffer = 50 - Math.round(10 * Math.random());
-      onRespond = true;
+      this.onStart = false;
+      this.nextOffer = 50 - Math.round(10 * Math.random());
+      this.onRespond = true;
     },
 
     //respond: Continues game after user response.
     respond: function(offer, accepted) {
       //Calculate scores
       var user = accepted ? offer : 0; 
-      var computer = accepted ? (100 - offer) : 0;
+      var computer = accepted ? (100 - offer) : Math.ceil(0.5 * offer);
 
       //Generate new round object and add it
       var round = { 
@@ -61,7 +55,7 @@ export default {
         userScore: user, 
         computerScore: computer,
       };
-      rounds.push(round);
+      this.rounds.push(round);
 
       //Next round
       this.next();
@@ -69,10 +63,10 @@ export default {
 
     //decide: Determines a response, and continues game.
     decide: function(offer) {
-      var decision = calculateDecision(rounds, offer); //Ask for algorithm's decision.
+      var decision = this.calculateDecision(this.rounds, offer); //Ask for algorithm's decision.
       
       //Calculate scores
-      var user = decision ? (100 - offer) : 0;
+      var user = decision ? (100 - offer) : Math.ceil(0.5 * offer);
       var computer = decision ? offer : 0;
 
       //Generate new round object and add it.
@@ -83,38 +77,42 @@ export default {
         userScore: user, 
         computerScore: computer,
       };
-      rounds.push(round);
+      this.rounds.push(round);
 
       //Ask the algorithm for the next round's offer, and proceed.
-      nextOffer = calculateOffer(rounds);
+      this.nextOffer = this.calculateOffer(this.rounds);
       this.next();
     },
 
     //calculateOffer: Calculates offer based on previous rounds.
     calculateOffer: function(rounds) {
-      return 50; //Placeholder
+      return rounds.length; //Placeholder
     },
 
     //calculateDecision: calculates decision based on previous rounds and the user's offer.
     calculateDecision: function(rounds, offer) {
-      return Math.random() >= 0.5 ? true : false; //Randomly returns true or false.
+      if (rounds) {
+        return offer > 40 ? true : false; //Randomly returns true or false.
+      } else {
+        return offer > 30 ? true : false;
+      }
     },
 
     //next: goes to the next round, or ends the game if there are 20 rounds.
     next: function() {
-      if (rounds.length < 20) {
+      if (this.rounds.length < 20) {
         //Alternate rounds by switching the values of the booleans:
-        onOffer = onReponse;
-        onResponse = !onOffer;
+        this.onOffer = this.onRespond;
+        this.onRespond = !this.onOffer;
       } else {
-        endGame();
+        this.endGame();
       }
     },
 
     //endGame: ends the game.
     endGame: function() {
-      onRespond = false; onOffer = false;
-      onFinish = true;
+      this.onRespond = false; this.onOffer = false;
+      this.onFinish = true;
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="game">
     <input type="text" v-model="offerVal" @keypress="onlyNumber"/>
-    <button value="offer" @click="submit" :disabled="loading"/>
+    <button @click="submit" :disabled="loading">Make Offer</button>
     <p class="error" v-if="error">Offer not valid. Must be between 0 and 100.</p>
   </div>
 </template>
