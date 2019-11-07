@@ -1,6 +1,7 @@
 <template>
   <div class="finish">
-    Game over, {{ result }}
+    <p>Game over. {{ result }}</p>
+    <button @click="restart">PLAY AGAIN</button>
   </div>
 </template>
 
@@ -10,6 +11,12 @@ export default {
 
   props: {
     rounds: Array,
+  },
+
+  methods: {
+    restart: function() {
+      this.$parent.restart();
+    }
   },
 
   computed: {
@@ -23,28 +30,19 @@ export default {
         computerScore += this.rounds[i].computerScore;
       }
 
+      //Get difference
+      var diff = Math.abs(computerScore - userScore);
+      var winner = (userScore == computerScore) ? "It's a tie!" :
+                    (userScore > computerScore) ? "You won " : "The computer won ";
+
       //Return scores
       if (userScore == computerScore) return "it's a tie!";
-      return userScore > computerScore ? "user wins!" : "computer wins!";
+      return winner + " by " + diff + ((diff == 1) ? "point." : " points.");
     },
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

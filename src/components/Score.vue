@@ -1,10 +1,18 @@
 <template>
   <div>
-    <p><span>User score: {{ this.getScores.userScore }}</span>, <span>Computer score: {{ this.getScores.computerScore }}</span></p>
-    <p v-for="(r, index) in rounds" :key="index">
-        <span v-if="r.type == 'offer'">Round {{ index + 1 }}: User offered {{ r.offer }}, computer {{ action(r.accepted) }}</span>
-        <span v-if="r.type == 'response'">Round {{ index + 1 }}: Computer offered {{ r.offer }}, user {{ action(r.accepted) }}</span>
+    <p>
+      <span>User score <b>{{ this.getScores.userScore }}</b></span>
+      <br>
+      <span>Computer score <b>{{ this.getScores.computerScore }}</b></span>
     </p>
+    <br>
+    <span v-for="(r, index) in rounds" class="small" :key="index">
+        <b>Round {{ index + 1 }}</b> |
+        <span v-if="r.type == 'offer'">User offers <b>{{ r.offer }}</b>, computer </span> &nbsp;
+        <span v-if="r.type == 'response'">Computer offers <b>{{ r.offer }}</b>, user</span> &nbsp;
+        <b>{{ action(r.accepted) }}</b>
+        <br>
+    </span>
   </div>
 </template>
 
@@ -19,7 +27,7 @@ export default {
   methods: {
     //action: returns "accepted" or "rejected" for "true" or "false", respectively
     action: function(response) {
-      return response ? "accepted" : "rejected";
+      return response ? "accepts" : "rejects";
     }
   },
 
@@ -48,18 +56,5 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

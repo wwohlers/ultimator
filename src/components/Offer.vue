@@ -1,8 +1,13 @@
 <template>
   <div class="game">
+    <p>
+      Round {{ roundNumber }} of 20 | 
+      Make an offer between 0 and 99.
+    </p>
     <input type="text" v-model="offerVal" @keypress="onlyNumber"/>
-    <button @click="submit" :disabled="loading">Make Offer</button>
     <p class="error" v-if="error">Offer not valid. Must be between 0 and 100.</p>
+    <br>
+    <button @click="submit" :disabled="loading">OFFER</button>
   </div>
 </template>
 
@@ -15,6 +20,10 @@ export default {
       loading: false,
       error: false,
     }
+  },
+
+  props: {
+    rounds: Array,
   },
 
   methods: {
@@ -34,30 +43,27 @@ export default {
     },
 
     //onlyNumber(event): Handles keypress event.
-    //Purpose: allows only numbers.
+    //Purpose: allows only numbers, and only numbers less than 100.
     onlyNumber ($event) {
       let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
       if ((keyCode < 48 || keyCode > 57)) {
           $event.preventDefault();
       }
+      if (this.offerVal.length == 2) {
+        $event.preventDefault();
+      }
+    }
+  },
+
+  computed: {
+    //roundNumber: computes the current round number
+    roundNumber: function() {
+      return this.rounds.length + 1;
     }
   },
 }
 </script>
 
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>
