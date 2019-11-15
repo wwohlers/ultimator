@@ -98,16 +98,12 @@ export default {
 
     //calculateOffer: Calculates offer based on previous rounds.
     calculateOffer: function(rounds) {
-      return rounds.length; //Placeholder
+      offer(rounds);
     },
 
     //calculateDecision: calculates decision based on previous rounds and the user's offer.
     calculateDecision: function(rounds, offer) {
-      if (rounds) {
-        return offer > 40 ? true : false; //Randomly returns true or false.
-      } else {
-        return offer > 30 ? true : false;
-      }
+      decision(rounds, offer);
     },
 
     //next: goes to the next round, or ends the game if there are 20 rounds.
@@ -127,6 +123,15 @@ export default {
       this.onFinish = true;
     }
   }
+}
+
+//decision: calulates a decision, accept or reject (true or false), based on past rounds and the user's offer
+function decision(rounds, offer) {
+  console.log('Make decision:' + rounds + offer);
+}
+
+function offer(rounds) {
+  console.log('Make offer' + rounds);
 }
 </script>
 
@@ -184,11 +189,10 @@ export default {
 }
 
 #app button {
-  background-color: white;
+  background-color: #dddddd;
+  border: 1px solid #cacaca;
   border-radius: 4px;
-  border-color: #bdbdbd;
-  border-width: 1px;
-  padding: 10px;
+  padding: 10px 12px 10px 12px;
   font-size: 16px;
   font-family: 'Montserrat', sans-serif;
   cursor: pointer;
@@ -196,21 +200,24 @@ export default {
 }
 
 #app input {
-  font-size: 28px;
+  font-size: 24px;
+  border-style: solid;
+  color: #444444;
   width: 100px;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   padding: 10px;
-  border-color: #2c3e50;
+  border-color: #cccccc;
   border-radius: 2px;
   border-width: 1px;
+  margin: 6px 0 8px 0;
 }
 
-#app button.green { border-color: #0f3d13; color: #0f3d13; }
-#app button.red { border-color: #540000; color: #540000; }
+#app button.green { color: #0f3d13; }
+#app button.red { color: #540000; }
 
 #app button:hover {
-  background-color: #e8e8e8;
+  background-color: #cacaca;
   transition: .5s;
 }
 
