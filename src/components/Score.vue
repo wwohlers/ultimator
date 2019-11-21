@@ -1,9 +1,7 @@
 <template>
   <div>
     <p>
-      <span>User score <b>{{ this.getScores.userScore }}</b></span>
-      <br>
-      <span>Computer score <b>{{ this.getScores.computerScore }}</b></span>
+      <span>Your score: <b> {{ this.getScores.user }}</b></span>
     </p>
     <br>
     <span v-for="(r, index) in rounds" class="small" :key="index">
@@ -32,7 +30,7 @@ export default {
   },
 
   computed: {
-    //getScores: returns an object containing the scores of the players.
+    //getScores: returns an object containing the total scores
     getScores: function() {
       var userScore = 0;
       var computerScore = 0;
@@ -44,10 +42,10 @@ export default {
       }
 
       //Return scores
-      return {userScore: userScore, computerScore: computerScore, }
+      return { user: userScore, computer: computerScore };
     },
 
-    //getGameCount: returns the length of the rounds object,
+    //getGameCount: returns the length of the rounds object
     getGameCount: function() {
       return this.rounds.length;
     },

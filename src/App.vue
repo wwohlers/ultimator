@@ -2,33 +2,31 @@
   <div id="app">
     <h1>The Ultimator Project</h1>
     <Start v-if="onStart" />
-    <Offer v-if="onOffer" :rounds="rounds"/>
-    <Respond v-if="onRespond" :offer="nextOffer" :rounds="rounds"/>
     <Finish v-if="onFinish" :rounds="rounds"/>
+    <Respond v-if="onRespond" :offer="nextOffer" :rounds="rounds"/>
     <Score v-if="showScore" :rounds="rounds"/>
   </div>
 </template>
 
 <script>
 import Start from './components/Start.vue'
-import Offer from './components/Offer.vue'
 import Respond from './components/Respond.vue'
-import Finish from './components/Finish.vue'
 import Score from './components/Score.vue'
+import Finish from './components/Finish.vue'
 
 export default {
   name: 'app',
+
   components: {
     Start,
-    Offer,
     Respond,
-    Finish,
-    Score
+    Score,
+    Finish
   },
+
   data() {
     return {
       onStart: true,
-      onOffer: false,
       onRespond: false,
       onFinish: false,
       showScore: false,
@@ -36,6 +34,7 @@ export default {
       nextOffer: 0,
     }
   },
+  
   methods: {
     //start: starts the game from the initial state.
     start: function() {
@@ -50,88 +49,58 @@ export default {
       this.onFinish = false;
       this.rounds = [];
       this.onStart = true;
+      this.onRespond = false;
       this.nextOffer = 0;
+      this.showScore = false;
     },
 
     //respond: Continues game after user response.
     respond: function(offer, accepted) {
       //Calculate scores
       var user = accepted ? offer : 0; 
-      var computer = accepted ? (100 - offer) : Math.ceil(0.5 * offer);
+      var computer = accepted ? (100 - offer) : 0;
 
       //Generate new round object and add it
       var round = { 
-        type: "response", 
+        type: "response",
         offer: offer, 
         accepted: accepted, 
-        userScore: user, 
-        computerScore: computer,
-      };
-      this.rounds.push(round);
-
-      //Next round
-      this.next();
-    },
-
-    //decide: Determines a response, and continues game.
-    decide: function(offer) {
-      var decision = this.calculateDecision(this.rounds, offer); //Ask for algorithm's decision.
-      
-      //Calculate scores
-      var user = decision ? (100 - offer) : Math.ceil(0.5 * offer);
-      var computer = decision ? offer : 0;
-
-      //Generate new round object and add it.
-      var round = { 
-        type: "offer", 
-        offer: offer, 
-        accepted: decision, 
-        userScore: user, 
+        userScore: user,
         computerScore: computer,
       };
       this.rounds.push(round);
 
       //Ask the algorithm for the next round's offer, and proceed.
-      this.nextOffer = this.calculateOffer(this.rounds);
+      this.nextOffer = this.offer(this.rounds);
+
+      //Next round
       this.next();
-    },
-
-    //calculateOffer: Calculates offer based on previous rounds.
-    calculateOffer: function(rounds) {
-      offer(rounds);
-    },
-
-    //calculateDecision: calculates decision based on previous rounds and the user's offer.
-    calculateDecision: function(rounds, offer) {
-      decision(rounds, offer);
     },
 
     //next: goes to the next round, or ends the game if there are 20 rounds.
     next: function() {
-      if (this.rounds.length < 20) {
-        //Alternate rounds by switching the values of the booleans:
-        this.onOffer = this.onRespond;
-        this.onRespond = !this.onOffer;
-      } else {
+      if (this.rounds.length == 20) {
         this.endGame();
       }
     },
 
     //endGame: ends the game.
     endGame: function() {
-      this.onRespond = false; this.onOffer = false;
+      this.onRespond = false;
       this.onFinish = true;
-    }
+    },
+
+    //decision: calulates a decision, accept or reject (true or false), based on past rounds and the user's offer
+    decision: function(rounds, offer) {
+      console.log('Make decision:' + rounds + offer);
+      return Math.random() < .5
+    },
+
+    offer: function(rounds) {
+      console.log('Make offer' + rounds);
+      return Math.floor(Math.random() * 50);
+    },
   }
-}
-
-//decision: calulates a decision, accept or reject (true or false), based on past rounds and the user's offer
-function decision(rounds, offer) {
-  console.log('Make decision:' + rounds + offer);
-}
-
-function offer(rounds) {
-  console.log('Make offer' + rounds);
 }
 </script>
 

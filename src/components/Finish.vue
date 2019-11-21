@@ -1,6 +1,6 @@
 <template>
   <div class="finish">
-    <p>Game over. {{ result }}</p>
+    <p>Game over. {{ result }}.</p>
     <button @click="restart">PLAY AGAIN</button>
   </div>
 </template>
@@ -20,6 +20,7 @@ export default {
   },
 
   computed: {
+    //result: writes result message informing final user score.
     result: function() {
       var userScore = 0;
       var computerScore = 0;
@@ -30,14 +31,8 @@ export default {
         computerScore += this.rounds[i].computerScore;
       }
 
-      //Get difference
-      var diff = Math.abs(computerScore - userScore);
-      var winner = (userScore == computerScore) ? "It's a tie!" :
-                    (userScore > computerScore) ? "You won " : "The computer won ";
-
-      //Return scores
-      if (userScore == computerScore) return "it's a tie!";
-      return winner + " by " + diff + ((diff == 1) ? "point." : " points.");
+      console.log(computerScore);
+      return "You scored " + userScore;
     },
   }
 }

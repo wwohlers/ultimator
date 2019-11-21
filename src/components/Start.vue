@@ -6,13 +6,12 @@
       player rejects the division, neither player receives any money.
       <br><br>
       The Ultimator Project is a variant of this game. You'll play 
-      20 rounds against a computer, taking turns offering and responding, accumulating points 
-      instead of collecting money. The player with more points wins.
+      20 rounds against a computer, accepting or rejecting its offers, and accumulating points 
+      instead of collecting money. Your goal is to accumulate as many points as possible.
       <br><br>
-      <b>How to play: </b> It's simple. Of the 100 points to share, one player will offer
-      some amount of points to the responding player. If he accepts, he 
-      receives the amount offered and the offerer gets the rest. If he rejects, he receives nothing, but
-      the offerer receives half of the offer.
+      <b>How to play: </b> It's simple. Of the 100 points to share, the computer will offer
+      you some amount of points. If you accept, you receive the amount offered and the computer gets the rest of the 100. 
+      If you reject, you both get nothing.
       <br><br>
       Keep in mind that you're playing against a learning algorithm. If you accept low offers,
       the computer will test your limits.
