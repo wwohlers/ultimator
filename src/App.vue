@@ -13,6 +13,7 @@ import Start from './components/Start.vue'
 import Respond from './components/Respond.vue'
 import Score from './components/Score.vue'
 import Finish from './components/Finish.vue'
+import algo from 'Algo.js'
 
 export default {
   name: 'app',
@@ -98,7 +99,7 @@ export default {
 
     offer: function(rounds) {
       console.log('Make offer' + rounds);
-      return Math.floor(Math.random() * 50);
+      return algo.algo();
     },
   }
 }
