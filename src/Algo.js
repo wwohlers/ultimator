@@ -83,7 +83,7 @@ export const algo1 = {
             offer *= 1.1;
             offer += 2;
         }
-        if (rejectAvg > 0 && lastOffer >= rejectAvg) {
+        if (rejectAvg > 0 && lastOffer > rejectAvg) {
             offer *= .9;
             offer--;
         }
@@ -91,7 +91,7 @@ export const algo1 = {
             offer *= 1.05;
             offer++;
         }
-        if (acceptAvg > 0 && lastOffer >= acceptAvg) {
+        if (acceptAvg > 0 && lastOffer > acceptAvg) {
             offer *= .8;
             offer -= 2;
         }

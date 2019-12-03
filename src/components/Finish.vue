@@ -32,7 +32,7 @@ export default {
       }
 
       console.log(computerScore);
-      return "You scored " + userScore;
+      return "You scored " + userScore + ", computer scored " + computerScore;
     },
   }
 }
