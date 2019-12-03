@@ -17,6 +17,11 @@
       the computer will test your limits.
       <br><br>
       Designed and developed by Bill Wohlers.
+      <br><br>
+      <select v-model="selected" @change="changeAlgo">
+        <option :value="1">Algorithm 1</option>
+        <option :value="2">Algorithm 2</option>
+      </select>
     </p>
     <br>
     <button @click="start">START</button>
@@ -26,11 +31,21 @@
 <script>
 export default {
   name: 'Start',
+
+  data() {
+    return {
+      selected: 1,
+    }
+  },
   
   methods: {
     start: function() {
       this.$parent.start();
-    }
+    },
+
+    changeAlgo: function() {
+      this.$parent.changeAlgo(this.selected);
+    },
   },
 }
 </script>

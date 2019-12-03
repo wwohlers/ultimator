@@ -13,7 +13,7 @@ import Start from './components/Start.vue'
 import Respond from './components/Respond.vue'
 import Score from './components/Score.vue'
 import Finish from './components/Finish.vue'
-import algo from 'Algo.js'
+import {algo1, algo2} from './Algo.js'
 
 export default {
   name: 'app',
@@ -33,6 +33,7 @@ export default {
       showScore: false,
       rounds: [],
       nextOffer: 0,
+      algo: 1,
     }
   },
   
@@ -40,7 +41,7 @@ export default {
     //start: starts the game from the initial state.
     start: function() {
       this.onStart = false;
-      this.nextOffer = 50 - Math.round(10 * Math.random());
+      this.nextOffer = 40 - Math.round(10 * Math.random());
       this.onRespond = true;
       this.showScore = true;
     },
@@ -72,7 +73,7 @@ export default {
       this.rounds.push(round);
 
       //Ask the algorithm for the next round's offer, and proceed.
-      this.nextOffer = this.offer(this.rounds);
+      this.nextOffer = this.offer(this.rounds, this.algo);
 
       //Next round
       this.next();
@@ -97,9 +98,13 @@ export default {
       return Math.random() < .5
     },
 
-    offer: function(rounds) {
-      console.log('Make offer' + rounds);
-      return algo.algo();
+    //determines next offer, algo as int 1 or 2
+    offer: function(rounds, algo) {
+      return (algo == 1) ? algo1.algo(rounds) : algo2.algo(rounds);
+    },
+
+    changeAlgo: function(newAlgo) {
+      this.algo = newAlgo;
     },
   }
 }
@@ -189,6 +194,14 @@ export default {
 #app button:hover {
   background-color: #cacaca;
   transition: .5s;
+}
+
+#app select {
+  padding: 10px;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  display: block;
+  margin: auto;
 }
 
 @media only screen and (max-width: 600px) {
