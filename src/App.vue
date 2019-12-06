@@ -107,7 +107,6 @@ export default {
 
     //decision: calulates a decision, accept or reject (true or false), based on past rounds and the user's offer
     decision: function(rounds, offer) {
-      console.log('Make decision:' + rounds + offer);
       return Math.random() < .5
     },
 
@@ -138,7 +137,7 @@ function send(data) {
   }
 
   $.ajax(settings).done(function (response) {
-    console.log(response);
+    
   });
 }
 </script>
