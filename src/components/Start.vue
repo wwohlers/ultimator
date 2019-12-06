@@ -7,7 +7,7 @@
       <br><br>
       The Ultimator Project is a variant of this game. You'll play 
       20 rounds against a computer, accepting or rejecting its offers, and accumulating points 
-      instead of collecting money. Your goal is to accumulate as many points as possible.
+      instead of collecting money. <b>Your goal is simply to accumulate as many points as possible.</b> Ignore the computer's score.
       <br><br>
       <b>How to play: </b> It's simple. Of the 100 points to share, the computer will offer
       you some amount of points. If you accept, you receive the amount offered and the computer gets the rest of the 100. 
