@@ -105,11 +105,6 @@ export default {
       send(resultObj);
     },
 
-    //decision: calulates a decision, accept or reject (true or false), based on past rounds and the user's offer
-    decision: function(rounds, offer) {
-      return Math.random() < .5
-    },
-
     //determines next offer, algo as int 1 or 2
     offer: function(rounds, algo) {
       return (algo == 1) ? algo1.algo(rounds) : algo2.algo(rounds);
@@ -136,9 +131,7 @@ function send(data) {
     "data": JSON.stringify(data)
   }
 
-  $.ajax(settings).done(function (response) {
-    
-  });
+  $.ajax(settings);
 }
 </script>
 
