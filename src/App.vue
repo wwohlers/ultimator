@@ -14,6 +14,7 @@ import Respond from './components/Respond.vue'
 import Score from './components/Score.vue'
 import Finish from './components/Finish.vue'
 import {algo1, algo2} from './Algo.js'
+var $ = require("jquery");
 
 export default {
   name: 'app',
@@ -90,6 +91,18 @@ export default {
     endGame: function() {
       this.onRespond = false;
       this.onFinish = true;
+
+      var userScore = 0;
+      var computerScore = 0;
+      //Get scores
+
+      for (var i = 0; i < this.rounds.length; i++) {
+        userScore += this.rounds[i].userScore;
+        computerScore += this.rounds[i].computerScore;
+      }
+
+      var resultObj = { algo: this.algo, user: userScore, cpu: computerScore };
+      send(resultObj);
     },
 
     //decision: calulates a decision, accept or reject (true or false), based on past rounds and the user's offer
@@ -107,6 +120,26 @@ export default {
       this.algo = newAlgo;
     },
   }
+}
+
+function send(data) {
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://ultimator-c9e0.restdb.io/rest/data",
+    "method": "POST",
+    "headers": {
+      "content-type": "application/json",
+      "x-apikey": "5de9a90f4658275ac9dc2382",
+      "cache-control": "no-cache"
+    },
+    "processData": false,
+    "data": JSON.stringify(data)
+  }
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 }
 </script>
 

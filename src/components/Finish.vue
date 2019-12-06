@@ -31,7 +31,6 @@ export default {
         computerScore += this.rounds[i].computerScore;
       }
 
-      console.log(computerScore);
       return "You scored " + userScore + ", computer scored " + computerScore;
     },
   }
